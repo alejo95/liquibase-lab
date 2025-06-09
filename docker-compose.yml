@@ -1,0 +1,34 @@
+services:
+  db:  # Servicio de base de datos PostgreSQL
+    image: postgres:14  # Imagen oficial de PostgreSQL, versión 14
+    container_name: liquibase_db  # Nombre del contenedor para referencia fácil
+    environment:  # Variables de entorno para crear la base de datos inicial
+      POSTGRES_USER: liquibase      # Usuario con permisos
+      POSTGRES_PASSWORD: liquibase  # Contraseña del usuario
+      POSTGRES_DB: liquibase_demo   # Nombre de la base de datos a crear
+    ports:
+      - "5432:5432"  # Expone el puerto de PostgreSQL al host local
+    networks:
+      - liquibase-net  # Conecta este servicio a una red personalizada
+    healthcheck:  # Verifica que PostgreSQL esté listo antes de continuar
+      test: ["CMD", "pg_isready", "-U", "liquibase"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  liquibase:  # Servicio para ejecutar comandos de Liquibase CLI
+    image: liquibase/liquibase # Imagen oficial de Liquibase
+    container_name: liquibase_cli  # Nombre del contenedor de Liquibase
+    depends_on:
+      db:
+        condition: service_healthy  # Espera a que la base de datos esté lista
+    volumes:  # Mapea archivos locales al contenedor
+      - ./changelogs:/liquibase/changelogs  # Cambios en la BD
+      - ./liquibase.properties:/liquibase/liquibase.properties  # Configuración
+    working_dir: /liquibase  # Carpeta por defecto donde ejecuta comandos
+    entrypoint: ["tail", "-f", "/dev/null"]  # Mantiene el contenedor en ejecución para uso interactivo
+    networks:
+      - liquibase-net  # Se conecta a la misma red que la BD
+
+networks:
+  liquibase-net:  # Red personalizada para que los servicios se comuniquen por nombre
