@@ -1,6 +1,6 @@
 services:
   db:  # Servicio de base de datos PostgreSQL
-    image: postgres:14  # Imagen oficial de PostgreSQL, versión 14
+    image: postgres:15  # Imagen oficial de PostgreSQL, versión 15
     container_name: liquibase_db  # Nombre del contenedor para referencia fácil
     environment:  # Variables de entorno para crear la base de datos inicial
       POSTGRES_USER: liquibase      # Usuario con permisos

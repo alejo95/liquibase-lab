@@ -1,17 +1,5 @@
-# changelogs/db.changelog-master.yaml
 databaseChangeLog:
-  - changeSet:
-      id: 1
-      author: tu_nombre
-      changes:
-        - createTable:
-            tableName: persona
-            columns:
-              - column:
-                  name: id
-                  type: serial
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: nombre
-                  type: varchar(100)
+  - include:
+      file: changelogs/001-create-users-table.yaml
+  - include:
+      file: changelogs/002-add-birthdate-to-users.yaml
