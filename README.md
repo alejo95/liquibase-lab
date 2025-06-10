@@ -21,7 +21,8 @@ Liquibase es una herramienta de código abierto para el control de versiones de 
 ## Uso rápido
 
 ```bash
-docker exec -it liquibase_cli liquibase update
+docker compose up -d    # levanta y crea el compose
+docker exec -it liquibase_cli liquibase update # Corre y ejecuta liquibase
 ```
 
 Esto iniciará los servicios y aplicará los cambios definidos en los changelogs de Liquibase sobre la base de datos PostgreSQL.
