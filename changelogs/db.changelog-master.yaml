@@ -1,5 +1,7 @@
 databaseChangeLog:
-  - include:
-      file: changelogs/001-create-users-table.yaml
-  - include:
-      file: changelogs/002-add-birthdate-to-users.yaml
+    - include:
+        file: changelogs/001-create-users-table.yaml
+    - include:
+        file: changelogs/002-add-birthdate-to-users.yaml
+    - include:
+        file: changelogs/003-add-column-age.yaml

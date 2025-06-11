@@ -1,0 +1,15 @@
+   databaseChangeLog:
+    - changeSet:
+        id: 003
+        author: alejo
+        changes:
+            - addColumn:
+                tableName: users
+                columns:
+                - column:
+                    name: age
+                    type: INT
+        rollback:
+            - dropColumn:
+                columnName: age
+                tableName: users
